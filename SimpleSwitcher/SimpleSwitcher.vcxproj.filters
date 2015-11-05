@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="tools">
+      <UniqueIdentifier>{c884c3e0-d538-4695-bfd4-052c922a6871}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gui">
+      <UniqueIdentifier>{741e814d-79b8-424f-9878-aa3c4be18451}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sw-tools">
+      <UniqueIdentifier>{bb9fd656-8b85-4533-9c79-7b43876b9135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="src-main">
+      <UniqueIdentifier>{044e2a02-e7a0-4358-8323-99eea5770ded}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="Hooker.h">
+      <Filter>src-main</Filter>
+    </ClInclude>
+    <ClInclude Include="swh.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="ShareMemory.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="utils-func.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="CAutoCleanup.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="CAutoCleanupGUI.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Errors.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="CAutoCOM.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="tools-include.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SwException.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="consts.h">
+      <Filter>src-main</Filter>
+    </ClInclude>
+    <ClInclude Include="ntapi.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>res</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsGui.h">
+      <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="SwGui.h">
+      <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="sw-base.h">
+      <Filter>sw-tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SwShared.h">
+      <Filter>sw-tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SwShedule.h">
+      <Filter>sw-tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SwUtils.h">
+      <Filter>sw-tools</Filter>
+    </ClInclude>
+    <ClInclude Include="KeysStruct.h">
+      <Filter>sw-tools</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>src-main</Filter>
+    </ClInclude>
+    <ClInclude Include="SwSyncVal.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="CAutoCleanupWin.h">
+      <Filter>tools</Filter>
+    </ClInclude>
+    <ClInclude Include="CHotKey.h">
+      <Filter>sw-tools</Filter>
+    </ClInclude>
+    <ClInclude Include="InputSender.h">
+      <Filter>sw-tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Revert.h">
+      <Filter>src-main</Filter>
+    </ClInclude>
+    <ClInclude Include="CAutoProcMonitor.h">
+      <Filter>sw-tools</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleSwitcher.h">
+      <Filter>src-main</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>src-main</Filter>
+    </ClCompile>
+    <ClCompile Include="Hooker.cpp">
+      <Filter>src-main</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>res</Filter>
+    </ClCompile>
+    <ClCompile Include="swh.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="utils-func.cpp">
+      <Filter>tools</Filter>
+    </ClCompile>
+    <ClCompile Include="AboutGui.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsGui.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="SwShedule.cpp">
+      <Filter>sw-tools</Filter>
+    </ClCompile>
+    <ClCompile Include="SwUtils.cpp">
+      <Filter>sw-tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Revert.cpp">
+      <Filter>src-main</Filter>
+    </ClCompile>
+    <ClCompile Include="mainmenu.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="pagebreak.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="pagemain.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="dlghotkey.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="pageadv.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="pagelay.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleSwitcher.cpp">
+      <Filter>src-main</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="favicon.ico">
+      <Filter>res</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SimpleSwitcher.rc">
+      <Filter>res</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="version.rc2">
+      <Filter>res</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "utils-func.h"
 
-
-
-
 TStatus IsElevated(HANDLE hProc, bool& res)
 {
 	res = false;

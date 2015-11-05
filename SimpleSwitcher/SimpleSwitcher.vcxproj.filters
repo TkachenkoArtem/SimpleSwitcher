@@ -57,9 +57,6 @@
     <ClInclude Include="tools-include.h">
       <Filter>tools</Filter>
     </ClInclude>
-    <ClInclude Include="SwException.h">
-      <Filter>tools</Filter>
-    </ClInclude>
     <ClInclude Include="consts.h">
       <Filter>src-main</Filter>
     </ClInclude>

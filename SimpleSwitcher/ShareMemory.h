@@ -1,11 +1,5 @@
 #pragma once
 
-//static const TChar c_ShareMemoryNameObj[] = ;
-
-//static const size_t c_ShareMemorySize = 1024;
-
-
-
 template<class T>
 class CShareMemory
 {

@@ -1,9 +1,6 @@
-#include "consts.h"
-
 #pragma once
 
-
-//typedef int TStatus;
+#include "consts.h"
 
 enum TStatus
 {

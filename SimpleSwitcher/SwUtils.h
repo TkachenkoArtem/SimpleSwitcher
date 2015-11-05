@@ -10,25 +10,13 @@ enum TSWAdmin
 {
 	SW_ADMIN_ON,
 	SW_ADMIN_OFF,
-	//SW_ADMIN_ANY,
 	SW_ADMIN_SELF,
 };
-
-
-
-//struct TSWCheckRunRes
-//{
-//	bool found = false;
-//	bool admin = false;
-//};
-
-
 
 inline TSWBit GetSelfBit()
 {
 	return IsSelf64() ? SW_BIT_64 : SW_BIT_32;
 }
-
 
 enum TStopRes
 {
@@ -37,17 +25,6 @@ enum TStopRes
 	STOP_RES_CANT_ADMIN,
 	STOP_RES_NOT_WIN64,
 };
-
-
-
-//TStatus CheckRunning(TSWBit bit, TSWCheckRunRes& result);
-//
-//TStatus StopByWnd(HWND hwnd, TStopRes& res1);
-//TStatus Stop(TSWBit bit, TStopRes& res);
-//TStatus StopAll(TStopRes& res, TStopRes& res2);
-//TStatus StopAllEnsureAdmin();
-
-//TStatus StartSwProc(const TCHAR* sCmd, TSWBit bit, HANDLE hToken, TSWAdmin admin, CAutoHandle& hProc);
 
 enum SwCreateProcFunc
 {
@@ -114,8 +91,6 @@ inline TStatus SwCreateProcessOurWaitFinished(const TCHAR* sCmd, TSWBit bit, TSW
 
 	SW_RETURN_SUCCESS;
 }
-//TStatus SwShellExecute(const TChar* sCmd, const TChar* sArgs, CAutoHandle& hProc, TSWAdmin admin);
-//TStatus SwCreateProcess(const TChar* sCmd, const TChar* sArgs, CAutoHandle& hProc, );
 
 enum TPathType
 {
@@ -141,8 +116,6 @@ struct BufScanMap
 	BYTE buf[c_size];
 	DWORD size = 0;
 	BufScanMap() { ZeroMemory(buf, c_size); }
-	//BYTE* begin() {return buf;}
-	//BYTE* end() {return buf+size;}
 	TKeyCode RemapedKey()
 	{
 		if (size == 0)

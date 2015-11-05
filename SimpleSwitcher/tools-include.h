@@ -8,11 +8,6 @@
 
 #include "Errors.h"
 #include "Logger.h"
-#include "SwException.h"
-
-
-// need error handling functions
-
 #include "utils-func.h"
 
 

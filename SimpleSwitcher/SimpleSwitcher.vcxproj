@@ -344,7 +344,6 @@
     <ClInclude Include="SimpleSwitcher.h" />
     <ClInclude Include="resource1.h" />
     <ClInclude Include="Revert.h" />
-    <ClInclude Include="SwException.h" />
     <ClInclude Include="SwGui.h" />
     <ClInclude Include="SwShared.h" />
     <ClInclude Include="SwShedule.h" />

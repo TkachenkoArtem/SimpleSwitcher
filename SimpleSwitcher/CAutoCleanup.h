@@ -83,22 +83,6 @@ MAKE_AUTO_CLEANUP(SC_HANDLE, ::CloseServiceHandle, NULL, CAutoSCHandle)
 MAKE_AUTO_CLEANUP(LPVOID, ::LocalFree, NULL, CAutoWinMem)
 MAKE_AUTO_CLEANUP(LPVOID, ::GlobalUnlock, NULL, CAutoGlobalLock)
 
-
-//class CAutoWinMutex
-//{
-//public:
-//	TStatus Init(const TChar* sName)
-//	{
-//		m_mtx = CreateMutex(NULL, false, sName);
-//		SW_WINBOOL_RET(m_mtx.IsValid());
-//
-//		SW_RETURN_SUCCESS;
-//	}
-//	HANDLE* Get() {return m_mtx;}
-//private:
-//	CAutoHandle m_mtx;
-//};
-
 class CAutoWinEvent
 {
 	BOOL SetEvent(HANDLE evt)

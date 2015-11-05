@@ -12,25 +12,11 @@ public:
 		static SwLogger logger;
 		return logger;
 	}
-	//template<class T>
-	//SwLogger& operator<<(const T& sMessage)
-	//{
-	//	if(fp)
-	//	{
-	//		
-	//	}
-	//	return *this;
-	//}
 	void VFormat(const TChar* format, va_list args)
 	{
 		if(fp)
 			vfwprintf_s(fp, format, args);
 	}
-	//void VFormat(const char* format, va_list args)
-	//{
-	//	if (fp)
-	//		vfprintf_s(fp, format, args);
-	//}
 	void Format(const TChar* Format, ...)
 	{
 		va_list alist;
@@ -38,13 +24,6 @@ public:
 		VFormat(Format, alist);
 		va_end(alist);
 	}
-	//void Format(const char* Format, ...)
-	//{
-	//	va_list alist;
-	//	va_start(alist, Format);
-	//	VFormat(Format, alist);
-	//	va_end(alist);
-	//}
 	void EndLine()
 	{
 		if(fp)
@@ -52,7 +31,6 @@ public:
 			fwprintf_s(fp, L"\n");
 			fflush(fp);
 		}
-		//fout << std::endl;
 	}
 	~SwLogger()
 	{
@@ -62,35 +40,24 @@ public:
 		}
 	}
 private:
-	//std::wofstream fout;
 	FILE* fp = NULL;
 	FILE* fp_char = NULL;
 	SwLogger()
 	{
-		//std::setlocale(LC_ALL, "en_US.UTF-8");
-		//std::locale::global(std::locale("en_US.UTF-8"));
-		//if (GetCurrentProcessId() == 3176)		MessageBox(0, L"1", L"1", 0);
 		TChar folder[0x1000];
 		if (!GetModuleFileNameEx(GetCurrentProcess(), GetCurrentModule(), folder, sizeof(folder)))
 			return;
-		//if (GetCurrentProcessId() == 3176)		MessageBox(0, L"1", L"1", 0);
 		TChar* sLast = wcsrchr(folder, L'\\');
 		if(sLast)
 			*sLast = 0;
-		//if (GetCurrentProcessId() == 3176)		MessageBox(0, L"1", L"1", 0);
 		wcscat_s(folder, L"\\log");
 		CreateDirectory(folder, NULL);
 		TChar base[512];
 		base[0] = 0;
 		GetModuleBaseName(GetCurrentProcess(), NULL, base, sizeof(base));
-		//wcscat_s(base, GetCommandLine());
 		TChar sLogPath[0x1000];
 		swprintf_s(sLogPath, L"%s\\%s(%d)_%u.log", folder, base, GetCurrentProcessId(), GetTickCount());
-		//if (GetCurrentProcessId() == 3176)	MessageBox(0, folder, folder, 0);
-		//_wfopen_s(&fp, sLogPath, L"wt, ccs=UTF-8");
 		fp = _wfsopen(sLogPath, L"wt, ccs=UTF-8", _SH_DENYNO);
-
-		//fout.open(sLogPath, std::fstream::in | std::fstream::out | std::fstream::app);
 	}
 
 };
@@ -115,7 +82,6 @@ inline TLogLevel GetLogLevel()
 #endif
 }
 
-//template<class TFormat>
 inline void __SW_LOG_FORMAT_V__(const TChar* format, va_list alist)
 {
 	SwLoggerGlobal().VFormat(format, alist);
@@ -133,7 +99,7 @@ inline void __SW_LOG_TIME()
 		(TUInt32)ST.wMilliseconds,
 		GetCurrentThreadId());
 }
-//template<class TFormat>
+
 inline void __SW_LOG_FORMAT__(const TChar* Format, ...)
 {
 	va_list alist;
@@ -141,7 +107,7 @@ inline void __SW_LOG_FORMAT__(const TChar* Format, ...)
 	__SW_LOG_FORMAT_V__(Format, alist);
 	va_end(alist);
 }
-//template<class TFormat>
+
 inline void SW_LOG_INFO_DEBUG(const TChar* Format, ...)
 {
 	if (GetLogLevel() >= LOG_LEVEL_2)
@@ -159,13 +125,6 @@ inline void SW_LOG_INFO_DEBUG(const TChar* Format, ...)
 inline bool SW_SUCCESS(TStatus stat) { return stat == SW_ERR_SUCCESS; }
 inline bool SW_ERROR(TStatus stat) { return !SW_SUCCESS(stat); }
 
-//struct SwErrBase
-//{
-//	operator bool() const
-//	{
-//		return IsErr();
-//	}
-//};
 
 struct WinErrBOOL
 {
@@ -175,8 +134,6 @@ struct WinErrBOOL
 	{
 		DWORD dwErr = GetLastError();
 		__SW_LOG_FORMAT__(L"WinErr=%d ", dwErr);
-
-		//SwLoggerGlobal() << L"fff";
 
 		CAutoWinMem lpMsgBuf;
 		FormatMessage(
@@ -191,7 +148,6 @@ struct WinErrBOOL
 		TChar* sMessage = (TChar*)lpMsgBuf.Get();
 		__SW_LOG_FORMAT__(L"%s", sMessage);
 
-		//SwLoggerGlobal() << L"fff";
 	}
 	operator bool() const { return res == FALSE; }
 	TStatus ToTStatus()	{	return SW_ERR_WINAPI;	}

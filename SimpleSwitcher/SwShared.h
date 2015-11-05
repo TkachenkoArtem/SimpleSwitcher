@@ -9,9 +9,7 @@ static const TUInt16 c_curVersionProtocol = 55;
 static const TChar c_sShareMtxName[] = L"Local\\SW_MTX_F62F91AD49184EEA";
 static const TChar c_sMtxSendInput[] = L"Local\\SW_MTX_434ab219ff012eaa";
 static const TChar c_sShareMapName[] = L"Local\\SW_MAP_D7271A8C4FA32C1E";
-//static const TChar c_sGUIMtx[]       = L"Local\\SW_MTX_GUI_A1cc56b09431";
 static const TChar c_mtxHook32[]     = L"Local\\SW_MTX_HOOK_32_12243434";
-//static const TChar c_mtxHook64[]     = L"Local\\SW_MTX_HOOK_64_ffffdasd";
 
 static const int c_nMaxLettersSave = 200;
 

@@ -32,13 +32,6 @@ TStatus CheckService(bool& isAdmin)
 
 	SW_RETURN_SUCCESS;
 }
-//TStatus ProcCtrl::CheckAutoStart(TCheckAutoRes& result)
-//{
-//	CheckAutoStartAdmin(result.admin);
-//	CheckAutoStartUser(result.user);
-//	SW_RETURN_SUCCESS;
-//
-//}
 TStatus RemoveWindowsRun()
 {
 	CAutoCloseHKey hg;
@@ -53,88 +46,6 @@ TStatus RemoveWindowsRun()
 	SW_RETURN_SUCCESS;
 }
 
-//TStatus StartSwProc(const TCHAR* sCmd, TSWBit bit, HANDLE hToken, TSWAdmin admin, CAutoHandle& hProc)
-//{
-//	std::wstring sPath;
-//	GetPath(sPath, PATH_TYPE_EXE_NAME, bit);
-//
-//	TCHAR args[0x1000];
-//	wcscpy_s(args, L" ");
-//	wcscat_s(args, sCmd);
-//	
-//	TCHAR buf[0x1000];
-//	wcscpy_s(buf, sPath.c_str());
-//
-//
-//	BOOL Res = FALSE;
-//
-//	bool selfElevated = IsSelfElevated();
-//	if ((admin == SW_ADMIN_ON && !selfElevated) || (admin == SW_ADMIN_OFF && IsSelfElevated()))
-//	{
-//		SHELLEXECUTEINFO shExInfo = { 0 };
-//		shExInfo.cbSize = sizeof(shExInfo);
-//		shExInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
-//		shExInfo.hwnd = 0;
-//		shExInfo.lpVerb = (admin == SW_ADMIN_ON) ? _T("runas") : 0;
-//		shExInfo.lpFile = buf;       
-//		shExInfo.lpParameters = args;
-//		shExInfo.lpDirectory = 0;
-//		shExInfo.nShow = SW_SHOW;
-//		shExInfo.hInstApp = 0;
-//
-//		SW_WINBOOL_RET(ShellExecuteEx(&shExInfo) == TRUE);
-//
-//		hProc = shExInfo.hProcess;
-//	}
-//	else
-//	{
-//		STARTUPINFO         siStartupInfo;
-//		PROCESS_INFORMATION piProcessInfo;
-//
-//		ZeroMemory(&siStartupInfo, sizeof(siStartupInfo));
-//		ZeroMemory(&piProcessInfo, sizeof(piProcessInfo));
-//
-//		siStartupInfo.cb = sizeof(siStartupInfo);
-//		if (hToken)
-//		{
-//
-//			Res = CreateProcessAsUser(
-//				hToken,
-//				buf,     
-//				args,                 
-//				0,
-//				0,
-//				FALSE,
-//				CREATE_DEFAULT_ERROR_MODE,
-//				0,
-//				0,                              
-//				&siStartupInfo,
-//				&piProcessInfo);
-//		}
-//		else
-//		{
-//			Res = CreateProcess(
-//				buf, 
-//				args,
-//				0,
-//				0,
-//				FALSE,
-//				CREATE_DEFAULT_ERROR_MODE,
-//				0,
-//				0,                              
-//				&siStartupInfo,
-//				&piProcessInfo);
-//		}
-//		SW_WINBOOL_RET(Res, L"Cant create proc %s %s", buf, args);
-//
-//		CloseHandle(piProcessInfo.hThread);
-//		hProc = piProcessInfo.hProcess;
-//
-//	}
-//	SW_RETURN_SUCCESS;
-//}
-
-
 TStatus GetPath(std::wstring& sPath, TPathType type, TSWBit bit)
 {
 	TCHAR buf[0x1000];
@@ -147,12 +58,6 @@ TStatus GetPath(std::wstring& sPath, TPathType type, TSWBit bit)
 		if (index != std::string::npos)
 			sPath.erase(index + 1);
 	}
-	//if(!isFull)
-	//{
-	//	size_t index = sPath.find_last_of(L"\\");
-	//	if (index != std::string::npos)
-	//		sPath.erase(0, index);
-	//}
 	if (type != PATH_TYPE_SELF_FOLDER)
 	{
 		size_t index = sPath.rfind(L"64.exe");

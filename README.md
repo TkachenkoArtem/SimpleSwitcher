@@ -2,7 +2,7 @@
 Simple Switcher - program to quickly switch the layout of the text. The analogue Punto Switcher
 
 ## Key features
-###Changing the layout of the last word you typed
+#### Changing the layout of the last word you typed
 The basic function of the program. By default, the "Break" key.
 
 #### Correction of several words in a row

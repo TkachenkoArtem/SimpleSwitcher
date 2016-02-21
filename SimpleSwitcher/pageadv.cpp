@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "SwUtils.h"
-#include "SettingsGui.h"
+#include "Settings.h"
 
 #include "SwGui.h"
 
@@ -26,7 +26,7 @@ void HandleCapsRemap(HWND hwnd)
 		{
 			if(readed.size > 0)
 			{
-				MessageBox(hwnd, L"Section 'Scancode Map' already exists", L"Error", MB_ICONERROR);
+				MessageBox(hwnd, GetMessageById(AM_7), GetMessageById(AM_ERROR), MB_ICONERROR);
 				return;
 			}
 			if(IsSelfElevated())
@@ -83,7 +83,7 @@ void UpdateCapsRemap(HWND hwnd)
 	capsVal += capsNewName;
 	if (SettingsGlobal().capsRemapApply != buf.RemapedKey())
 	{
-		capsVal += L" (windows requires a reboot)";
+		capsVal += GetMessageById(AM_6);
 	}
 	SetDlgItemText(hwnd, IDC_STATIC_CAPSVAL, capsVal.c_str());
 	BufScanMap etalon;
@@ -92,8 +92,20 @@ void UpdateCapsRemap(HWND hwnd)
 }
 LRESULT CALLBACK DlgProcPageAdv(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	if (CommonDlgPageProcess(hwnd, msg, wParam, lParam))
+	{
+		return TRUE;
+	}
+
 	if (msg == WM_INITDIALOG)
 	{
+		//SetDlgItemText(hwnd, IDC_BUTTON_SET2, GetMessageById(AM_SET));
+		//SetDlgItemText(hwnd, IDC_BUTTON_SET, GetMessageById(AM_SET));
+		//SetDlgItemText(hwnd, IDC_BUTTON_SET, GetMessageById(AM_SET));
+		//SetDlgItemText(hwnd, IDC_STATIC_LW, GetMessageById(AM_LW));
+		//SetDlgItemText(hwnd, IDC_STATIC_FW, GetMessageById(AM_FW));
+
+
 		KeyToDlg(HotKey_RevertAdv, IDC_EDIT_BREAK, hwnd);
 		KeyToDlg(HotKey_RevertCycleAdv, IDC_EDIT_BREAK2, hwnd);
 		KeyToDlg(HotKey_CapsGenerate, IDC_EDIT_BREAK3, hwnd);

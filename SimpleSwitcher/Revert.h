@@ -31,7 +31,7 @@ inline TStatus ClearMods()
 
 inline TStatus RestoreMods(CHotKey key)
 {
-	SW_LOG_INFO_DEBUG(L"RestoreMods for key %s", key.ToString().c_str());
+	//SW_LOG_INFO_2(L"RestoreMods for key %s", key.ToString().c_str());
 
 	BYTE buf[256];// = {0};
 	SW_WINBOOL_RET(GetKeyboardState(buf));
@@ -42,7 +42,7 @@ inline TStatus RestoreMods(CHotKey key)
 		if (!CHotKey::IsKnownMods(k))
 			continue;
 		SHORT res = GetAsyncKeyState(k);
-		SW_LOG_INFO_DEBUG(L"GetAsyncKeyState for key %s = 0x%x", CHotKey::ToString(k).c_str(), res);
+		//SW_LOG_INFO_2(L"GetAsyncKeyState for key %s = 0x%x", CHotKey::ToString(k).c_str(), res);
 		if (res & 0x8000)
 		{
 			if (k >= SW_ARRAY_SIZE(buf))
@@ -51,7 +51,7 @@ inline TStatus RestoreMods(CHotKey key)
 			buf[k] &= 0x8000;
 			keyAdded.Add(k);
 
-			SW_LOG_INFO_DEBUG(L"Add key %s to down after input", CHotKey::ToString(k).c_str());
+			//SW_LOG_INFO_2(L"Add key %s to down after input", CHotKey::ToString(k).c_str());
 
 		}
 	}

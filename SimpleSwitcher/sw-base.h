@@ -24,6 +24,8 @@
 #include "SwUtils.h"
 #include "consts.h"
 
+#include "swlocal.h"
+
 
 # pragma comment(lib, "Psapi.lib")
 

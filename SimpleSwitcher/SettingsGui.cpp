@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "SettingsGui.h"
+#include "Settings.h"
 #include "SwUtils.h"
 
 #include <boost/property_tree/ptree.hpp>
@@ -62,8 +62,10 @@ void SettingsGui::Load()
 	//isAltCapsGen = pt.get_optional<bool>(L"AltCapsGen").get_value_or(bool(false));
 	isEnabledSaved = pt.get_optional<bool>(L"enable").get_value_or(bool(false));
 	fHookDll = pt.get_optional<bool>(L"fHookDll").get_value_or(bool(true));
+	fDbgMode = pt.get_optional<bool>(L"fDbgMode").get_value_or(bool(false));
 	bootTime = pt.get_optional<TUInt64>(L"boottime").get_value_or(0);
 	capsRemapApply = pt.get_optional<TKeyCode>(L"capsRemapApply").get_value_or(0);
+	idLang = (SwLang) pt.get_optional<int>(L"idLang").get_value_or(int(SLANG_UNKNOWN));
 
 	for (int i = 0; i < SW_ARRAY_SIZE(hotKeys); ++i)
 	{
@@ -81,6 +83,8 @@ void SettingsGui::Load()
 		cur = (HKL)pt.get_optional<TUInt64>(sName).get_value_or(0);
 	}
 
+	SetLogLevelBySettings();
+
 }
 void SettingsGui::Save()
 {
@@ -90,11 +94,13 @@ void SettingsGui::Save()
 	pt.put(L"addToTray", isAddToTray);
 	pt.put(L"OEM2", isTryOEM2);
 	pt.put(L"fHookDll", fHookDll);
+	pt.put(L"fDbgMode", fDbgMode);
 	pt.put(L"isDashSeparate", isDashSeparate);
 	//pt.put(L"AltCapsGen", isAltCapsGen);
 	pt.put(L"enable", isEnabledSaved);
 	pt.put(L"boottime", bootTime);
 	pt.put(L"capsRemapApply", capsRemapApply);
+	pt.put(L"idLang", (int)idLang);
 
 	for (int i = 0; i < SW_ARRAY_SIZE(hotKeys); ++i)
 	{

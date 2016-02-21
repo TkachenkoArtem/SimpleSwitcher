@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "SwUtils.h"
-#include "SettingsGui.h"
+#include "Settings.h"
 #include "SwShared.h"
 
 #include "SwGui.h"
@@ -30,11 +30,11 @@ LRESULT CALLBACK LowLevelKeyboardProc(
 	{
 		KBDLLHOOKSTRUCT* kStruct = (KBDLLHOOKSTRUCT*)lParam;
 		DWORD vkKey = kStruct->vkCode;
-		if (GetLogLevel() >= LOG_LEVEL_1)
-		{
-			KeyState keyState = GetKeyState(wParam);
-			SW_LOG_INFO_DEBUG(L"%S 0x%x", GetKeyStateName(keyState), vkKey);
-		}
+		//if (GetLogLevel() >= LOG_LEVEL_1)
+		//{
+		//	KeyState keyState = GetKeyState(wParam);
+		//	SW_LOG_INFO_2(L"%S 0x%x", GetKeyStateName(keyState), vkKey);
+		//}
 
 		PostMessage(g_hkdata->hwndEditRevert, c_MSG_TypeHotKey, wParam, (WPARAM)vkKey);
 	}
@@ -149,7 +149,7 @@ LRESULT CALLBACK EditBreakProc(HWND hEdit, UINT msg, WPARAM wParam, LPARAM lPara
 			return 0;
 		if(CHotKey::Normalize(vkCode) == VK_MENU && g_hkdata->fAltDisable)
 		{
-			MessageBox(g_hkdata->hwnd, L"Alt modifier is not supported due to the nature of Windows", SW_PROGRAM_NAME_L, MB_ICONINFORMATION);
+			MessageBox(g_hkdata->hwnd, GetMessageById(AM_4), SW_PROGRAM_NAME_L, MB_ICONINFORMATION);
 		}
 		else
 		{
@@ -198,7 +198,7 @@ bool ChangeHotKey(HotKeyType type, int dlgId, HWND hwnd, bool fAltDisable)
 	data.fAltDisable = fAltDisable;
 	DialogBoxParam(
 		CommonDataGlobal().hInst,
-		MAKEINTRESOURCE(IDD_DIALOG_HOTKEY),
+		MAKEINTRESOURCE(GetDialogById(SD_HOTKEY)),
 		CommonDataGlobal().hWndGuiMain,
 		(DLGPROC)DlgProcHotKey,
 		(LPARAM)&data);

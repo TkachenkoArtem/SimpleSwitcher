@@ -175,7 +175,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\lib\boost_1_57_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\файлы_саши\boost_1_57_0</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -193,7 +193,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\lib\boost_1_57_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\файлы_саши\boost_1_57_0</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -249,7 +249,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\lib\boost_1_57_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\файлы_саши\boost_1_57_0</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -269,7 +269,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\lib\boost_1_57_0</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\файлы_саши\boost_1_57_0</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -345,12 +345,13 @@
     <ClInclude Include="resource1.h" />
     <ClInclude Include="Revert.h" />
     <ClInclude Include="SwGui.h" />
+    <ClInclude Include="swlocal.h" />
     <ClInclude Include="SwShared.h" />
     <ClInclude Include="SwShedule.h" />
     <ClInclude Include="SwSyncVal.h" />
     <ClInclude Include="SwUtils.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="SettingsGui.h" />
+    <ClInclude Include="Settings.h" />
     <ClInclude Include="ShareMemory.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="swh.h" />
@@ -363,8 +364,12 @@
     <ClCompile Include="AboutGui.cpp" />
     <ClCompile Include="dlghotkey.cpp" />
     <ClCompile Include="Hooker.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainmenu.cpp" />
+    <ClCompile Include="msg_en.cpp" />
+    <ClCompile Include="msg_ru.cpp" />
+    <ClCompile Include="pagelang.cpp" />
     <ClCompile Include="SimpleSwitcher.cpp" />
     <ClCompile Include="pageadv.cpp" />
     <ClCompile Include="pagelay.cpp" />
@@ -372,6 +377,7 @@
     <ClCompile Include="pagebreak.cpp" />
     <ClCompile Include="Revert.cpp" />
     <ClCompile Include="swh.cpp" />
+    <ClCompile Include="swlocal.cpp" />
     <ClCompile Include="SwShedule.cpp" />
     <ClCompile Include="SwUtils.cpp" />
     <ClCompile Include="SettingsGui.cpp" />

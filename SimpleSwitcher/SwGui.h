@@ -2,7 +2,7 @@
 
 #include "CAutoCleanupGUI.h"
 #include "SimpleSwitcher.h"
-#include "SettingsGui.h"
+#include "Settings.h"
 
 namespace SwGui
 {
@@ -26,6 +26,8 @@ namespace SwGui
 	LRESULT CALLBACK DlgProcPageAdv(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 	LRESULT CALLBACK DlgProcPageLay(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+	LRESULT CALLBACK DlgProcPageLang(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 
 
@@ -82,12 +84,12 @@ namespace SwGui
 			SW_WINBOOL_RET(hEditBrush.IsValid());
 
 			hPopupMenu = CreatePopupMenu();
-			AppendMenu(hPopupMenu, MF_STRING, ID_TRAYITEM_SHOW, TEXT("Показать"));
+			AppendMenu(hPopupMenu, MF_STRING, ID_TRAYITEM_SHOW, GetMessageById(AM_SHOW));
 			AppendMenu(hPopupMenu, MF_SEPARATOR, 0, 0);
-			AppendMenu(hPopupMenu, MF_CHECKED, ID_TRAYITEM_ENABLE, TEXT("Включить"));
-			AppendMenu(hPopupMenu, MF_STRING, ID_TRAYITEM_ABOUT, TEXT("О программе"));
+			AppendMenu(hPopupMenu, MF_CHECKED, ID_TRAYITEM_ENABLE, GetMessageById(AM_ENABLE));
+			AppendMenu(hPopupMenu, MF_STRING, ID_TRAYITEM_ABOUT, GetMessageById(AM_ABOUT));
 			AppendMenu(hPopupMenu, MF_SEPARATOR, 0, 0);
-			AppendMenu(hPopupMenu, MF_STRING, ID_TRAYITEM_EXIT, TEXT("Выход"));
+			AppendMenu(hPopupMenu, MF_STRING, ID_TRAYITEM_EXIT, GetMessageById(AM_EXIT));
 
 			{
 				NONCLIENTMETRICS metrics;
@@ -110,6 +112,7 @@ namespace SwGui
 		HWND hwndPageBreak = NULL;
 		HWND hwndPageAdv = NULL;
 		HWND hwndPageLay = NULL;
+		HWND hwndPageLang = NULL;
 
 		HWND hwndCurPageShow = NULL;
 
@@ -120,5 +123,16 @@ namespace SwGui
 	};
 
 	extern DialogData g_dlgData;
+
+	inline LRESULT CommonDlgPageProcess(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+	{
+		switch (msg)
+		{
+		case WM_RBUTTONDOWN:
+			ShowPopupMenu();
+			return TRUE;
+		}
+		return FALSE;
+	}
 
 }

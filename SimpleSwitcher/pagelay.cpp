@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "SwUtils.h"
-#include "SettingsGui.h"
+#include "Settings.h"
 
 #include "SwGui.h"
 
@@ -65,6 +65,11 @@ void ComboChanged(HWND hwnd, int id)
 }
 LRESULT CALLBACK DlgProcPageLay(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	if (CommonDlgPageProcess(hwnd, msg, wParam, lParam))
+	{
+		return TRUE;
+	}
+
 	if (msg == WM_INITDIALOG)
 	{
 		KeyToDlg(HotKey_ChangeLayoutCycle, IDC_EDIT_K1, hwnd);

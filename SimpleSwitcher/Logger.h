@@ -72,15 +72,8 @@ enum TLogLevel
 
 	LOG_LEVEL_ERROR = LOG_LEVEL_1,
 };
-
-inline TLogLevel GetLogLevel()
-{
-#ifdef _DEBUG
-	return LOG_LEVEL_2;
-#else
-	return LOG_LEVEL_0;
-#endif
-}
+void SetLogLevel(TLogLevel logLevel);
+TLogLevel GetLogLevel();
 
 inline void __SW_LOG_FORMAT_V__(const TChar* format, va_list alist)
 {
@@ -108,18 +101,19 @@ inline void __SW_LOG_FORMAT__(const TChar* Format, ...)
 	va_end(alist);
 }
 
-inline void SW_LOG_INFO_DEBUG(const TChar* Format, ...)
+inline void SW_LOG_INFO(const TChar* Format, ...)
 {
-	if (GetLogLevel() >= LOG_LEVEL_2)
-	{
-		__SW_LOG_TIME();
-		va_list alist;
-		va_start(alist, Format);
-		SwLoggerGlobal().VFormat(Format, alist);
-		va_end(alist);
-		SwLoggerGlobal().EndLine();
-	}
+	__SW_LOG_TIME();
+	va_list alist;
+	va_start(alist, Format);
+	SwLoggerGlobal().VFormat(Format, alist);
+	va_end(alist);
+	SwLoggerGlobal().EndLine();
 }
+
+#define SW_LOG_INFO_2(...) {if(GetLogLevel() >= LOG_LEVEL_2){SW_LOG_INFO(__VA_ARGS__);}}
+#define SW_LOG_INFO_1(...) {if(GetLogLevel() >= LOG_LEVEL_1){SW_LOG_INFO(__VA_ARGS__);}}
+
 
 #define SW_RETURN_SUCCESS {return SW_ERR_SUCCESS; }
 inline bool SW_SUCCESS(TStatus stat) { return stat == SW_ERR_SUCCESS; }
@@ -210,7 +204,7 @@ struct WinErrHRESULT
 template<class T>
 inline void __Log_Err_Common(T err, const char* file, int line, const wchar_t* format = nullptr, ...)
 {
-	if(GetLogLevel() < LOG_LEVEL_2)
+	if(GetLogLevel() < LOG_LEVEL_1)
 		return;
 	__SW_LOG_TIME();
 	err.Log();

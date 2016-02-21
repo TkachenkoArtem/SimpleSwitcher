@@ -2,7 +2,7 @@
 
 #include "Hooker.h"
 #include "Revert.h"
-#include "SettingsGui.h"
+#include "Settings.h"
 #include "SimpleSwitcher.h"
 #include "CAutoCleanupWin.h"
 
@@ -70,7 +70,7 @@ void PrintHwnd(HWND hwnd, const TChar* name=L"name1")
 	{
 		DWORD pid = 0;
 		DWORD threadid = GetWindowThreadProcessId(hwnd, &pid);
-		SW_LOG_INFO_DEBUG(L"%s=%p, pid=%d threadid=%d", name, hwnd, pid, threadid);
+		//SW_LOG_INFO_2(L"%s=%p, pid=%d threadid=%d", name, hwnd, pid, threadid);
 	}
 }
 VOID CALLBACK SendAsyncProc(
@@ -85,7 +85,7 @@ VOID CALLBACK SendAsyncProc(
 
 void Hooker::NeedRevert(HotKeyType typeRevert)
 {
-	SW_LOG_INFO_DEBUG(L"NeedRevert typeRevert=%d", typeRevert);
+	//SW_LOG_INFO_1(L"NeedRevert typeRevert=%d", typeRevert);
 
 	TStatus stat = NeedRevertInt(typeRevert);
 	if (SW_ERROR(stat))
@@ -100,7 +100,7 @@ TStatus Hooker::LowLevelKeyboardProcInt(KBDLLHOOKSTRUCT* k, WPARAM wParam)
 
 	if(k->vkCode > 255)
 	{
-		SW_LOG_INFO_DEBUG(L"k->vkCode > 255: %d", k->vkCode);
+		//SW_LOG_INFO_2(L"k->vkCode > 255: %d", k->vkCode);
 		SW_RETURN_SUCCESS;
 	}
 
@@ -131,16 +131,16 @@ TStatus Hooker::LowLevelKeyboardProcInt(KBDLLHOOKSTRUCT* k, WPARAM wParam)
 	else
 		return SW_ERR_UNKNOWN;
 
-	if (GetLogLevel() >= LOG_LEVEL_1)
-	{
-		std::wstring s1;
-		CHotKey::ToString(vkCode, s1);
-		SW_LOG_INFO_DEBUG(L"cur type %S: %s ", GetKeyStateName(curKeyState), s1.c_str());
+	//if (GetLogLevel() >= LOG_LEVEL_1)
+	//{
+	//	std::wstring s1;
+	//	CHotKey::ToString(vkCode, s1);
+	//	SW_LOG_INFO_2(L"cur type %S: %s ", GetKeyStateName(curKeyState), s1.c_str());
 
-		std::wstring s2;
-		m_curKey.ToString(s2, true);
-		SW_LOG_INFO_DEBUG(L"cur hot key: %s", s2.c_str());
-	}
+	//	std::wstring s2;
+	//	m_curKey.ToString(s2, true);
+	//	SW_LOG_INFO_2(L"cur hot key: %s", s2.c_str());
+	//}
 
 	if (curKeyState != KEY_STATE_DOWN)
 		SW_RETURN_SUCCESS;
@@ -218,7 +218,7 @@ TStatus Hooker::Init()
 }
 void Hooker::ClearAllWords()
 {
-	SW_LOG_INFO_DEBUG(L"ClearsKeys");
+	//SW_LOG_INFO_2(L"ClearsKeys");
 
 	{
 		std::unique_lock<std::recursive_mutex > lock(m_mtxKeyList);
@@ -233,7 +233,7 @@ void Hooker::ClearAllWords()
 			}
 			else
 			{
-				SW_LOG_INFO_DEBUG(L"Up key %s because GetAsyncKeyState", CHotKey::ToString(*k).c_str());
+				//SW_LOG_INFO_2(L"Up key %s because GetAsyncKeyState", CHotKey::ToString(*k).c_str());
 				m_curKey.Remove(*k);
 			}
 		}
@@ -355,7 +355,7 @@ TStatus Hooker::GenerateCycleRevertList()
 
 void Hooker::ClearCycleRevert()
 {
-	SW_LOG_INFO_DEBUG(L"ClearCycleRevert");
+	//SW_LOG_INFO_2(L"ClearCycleRevert");
 	{
 		std::unique_lock<std::recursive_mutex > lock(m_mtxKeyList);
 		m_CycleRevertList.clear();
@@ -372,7 +372,7 @@ void CALLBACK Hooker::WinEventProc(HWINEVENTHOOK hWinEventHook, DWORD event, HWN
 TStatus Hooker::ClipboardChangedInt()
 {
 	DWORD dwTime = GetTickCount() - m_dwLastCtrlCReqvest;
-	SW_LOG_INFO_DEBUG(L"ClipboardChangedInt dwTime=%u", dwTime);
+	//SW_LOG_INFO_2(L"ClipboardChangedInt dwTime=%u", dwTime);
 	if (dwTime < 500)
 	{
 		if (!IsClipboardFormatAvailable(CF_UNICODETEXT))
@@ -383,7 +383,7 @@ TStatus Hooker::ClipboardChangedInt()
 		CAutoGlobalLock lock = GlobalLock(hData);
 		SW_WINBOOL_RET(lock.IsValid());
 		TCHAR* sText = (TCHAR*)lock.Get();
-		SW_LOG_INFO_DEBUG(L"buffer=%s", sText);
+		//SW_LOG_INFO_2(L"buffer=%s", sText);
 
 		HKL layouts[10];
 		int count = GetKeyboardLayoutList(10, layouts);
@@ -391,7 +391,7 @@ TStatus Hooker::ClipboardChangedInt()
 		
 		SwZeroMemory(m_sendData);
 
-		SW_LOG_INFO_DEBUG(L"layout=%u", m_layoutTopWnd);
+		//SW_LOG_INFO_2(L"layout=%u", m_layoutTopWnd);
 		for(int i = 0; i < (int)wcslen(sText); ++i)
 		{
 			TCHAR c = sText[i];
@@ -416,7 +416,7 @@ TStatus Hooker::ClipboardChangedInt()
 			BYTE mods = HIBYTE(res);
 			BYTE code = LOBYTE(res);
 
-			SW_LOG_INFO_DEBUG(L"found vkcode=%u mods=%u", code, mods);
+			//SW_LOG_INFO_2(L"found vkcode=%u mods=%u", code, mods);
 			CHotKey key;
 			key.Add(code);
 			if(TestFlag(mods, 0x1))
@@ -432,18 +432,18 @@ TStatus Hooker::ClipboardChangedInt()
 
 LRESULT CALLBACK Hooker::CBTProc(_In_ int nCode, _In_ WPARAM wParam, _In_ LPARAM lParam)
 {
-	SW_LOG_INFO_DEBUG(L"fff=10");
+	//SW_LOG_INFO_2(L"fff=10");
 	return CallNextHookEx(NULL, nCode, wParam, lParam);
 }
 
 void Hooker::ChangeForeground(HWND hwnd)
 {
-	SW_LOG_INFO_DEBUG(L"Now foreground hwnd=0x%x", hwnd);
+	//SW_LOG_INFO_2(L"Now foreground hwnd=0x%x", hwnd);
 	DWORD procId = 0;
 	DWORD threadid = GetWindowThreadProcessId(hwnd, &procId);
 	if (threadid != m_dwIdThreadForeground && procId != m_dwIdProcoreground)
 	{
-		SW_LOG_INFO_DEBUG(L"threadid=%d, procId=%d", threadid, procId);
+		//SW_LOG_INFO_2(L"threadid=%d, procId=%d", threadid, procId);
 		ClearAllWords();
 	}
 	m_dwIdThreadForeground = threadid;
@@ -589,7 +589,7 @@ TStatus Hooker::DoneRevert()
 	if (sendData.fRequestComplite == 0)
 	{
 
-		SW_LOG_INFO_DEBUG(L"SendKeysFromHost...");
+		//SW_LOG_INFO_2(L"SendKeysFromHost...");
 		if (TestFlag(sendData.flags, SW_CLIENT_SetLang))
 		{
 			if (sendData.lay)

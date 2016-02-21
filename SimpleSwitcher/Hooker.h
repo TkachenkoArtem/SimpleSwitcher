@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ShareMemory.h"
-#include "SettingsGui.h"
+#include "Settings.h"
 #include "SwShared.h"
 
 #include <deque>
@@ -65,7 +65,7 @@ public:
 	TStatus DoneRevert();
 	void CompleteRevert()
 	{
-		SW_LOG_INFO_DEBUG(L"CompleteRevert");
+		//SW_LOG_INFO_2(L"CompleteRevert");
 		m_fRevertInProgress = false;
 	}
 

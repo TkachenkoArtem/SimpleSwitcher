@@ -4,7 +4,7 @@
 #include "Commctrl.h"
 
 #include "SwUtils.h"
-#include "SettingsGui.h"
+#include "Settings.h"
 #include "CAutoCOM.h"
 #include "SwShedule.h"
 #include "SwShared.h"
@@ -159,6 +159,8 @@ TStatus InitDialogMainMenu(HWND hwnd)
 	SW_TSTATUS_RET(g_dlgData.Init(hwnd));
 	g_dlgData.hwndMainMenu = hwnd;
 
+	SetDlgItemText(hwnd, IDC_BUTTON_CLOSE, GetMessageById(AM_CLOSE));
+
 	{
 		TChar buf[512];
 		wcscpy_s(buf, c_sProgramName);
@@ -189,26 +191,30 @@ TStatus InitDialogMainMenu(HWND hwnd)
 	if (g_dlgData.hIconBig)
 		SendMessage(hwnd, WM_SETICON, ICON_BIG, (LPARAM)g_dlgData.hIconBig.Get());
 
-	SettingsGlobal().Load();
-
 	SW_TSTATUS_RET(InitPage(
-		MAKEINTRESOURCE(IDD_DIALOG_PAGEMAIN), 
+		MAKEINTRESOURCE(GetDialogById(SD_MAINMENU)),
 		(DLGPROC)DlgProcPageMain, 
 		&g_dlgData.hwndPageMain, hwnd));
 
 	SW_TSTATUS_RET(InitPage(
-		MAKEINTRESOURCE(IDD_DIALOG_PAGELAY),
+		MAKEINTRESOURCE(GetDialogById(SD_LAY)),
 		(DLGPROC)DlgProcPageLay,
 		&g_dlgData.hwndPageLay, hwnd));
 
 	SW_TSTATUS_RET(InitPage(
-		MAKEINTRESOURCE(IDD_DIALOG_PAGEADV),
+		MAKEINTRESOURCE(GetDialogById(SD_ADV)),
 		(DLGPROC)DlgProcPageAdv,
 		&g_dlgData.hwndPageAdv, hwnd));
 
-	SendDlgItemMessage(hwnd, IDC_LIST_MAIN_MENU, LB_ADDSTRING, 0, (WPARAM)L"Common");
-	SendDlgItemMessage(hwnd, IDC_LIST_MAIN_MENU, LB_ADDSTRING, 0, (WPARAM)L"Additional");
-	SendDlgItemMessage(hwnd, IDC_LIST_MAIN_MENU, LB_ADDSTRING, 0, (WPARAM)L"Layout change");
+	SW_TSTATUS_RET(InitPage(
+		MAKEINTRESOURCE(IDD_DIALOG_PAGE_LANG),
+		(DLGPROC)DlgProcPageLang,
+		&g_dlgData.hwndPageLang, hwnd));
+
+	SendDlgItemMessage(hwnd, IDC_LIST_MAIN_MENU, LB_ADDSTRING, 0, (WPARAM)GetMessageById(AM_COMMON));
+	SendDlgItemMessage(hwnd, IDC_LIST_MAIN_MENU, LB_ADDSTRING, 0, (WPARAM)GetMessageById(AM_2));
+	SendDlgItemMessage(hwnd, IDC_LIST_MAIN_MENU, LB_ADDSTRING, 0, (WPARAM)GetMessageById(AM_3));
+	SendDlgItemMessage(hwnd, IDC_LIST_MAIN_MENU, LB_ADDSTRING, 0, (WPARAM)GetMessageById(AM_LANG));
 
 	ShowPage(g_dlgData.hwndPageMain);
 
@@ -234,6 +240,10 @@ BOOL CALLBACK HandleSelChange(HWND hwnd)
 			else if (res == 2)
 			{
 				ShowPage(g_dlgData.hwndPageLay);
+			}
+			else if (res == 3)
+			{
+				ShowPage(g_dlgData.hwndPageLang);
 			}
 		}
 		return TRUE;
@@ -261,11 +271,13 @@ BOOL CALLBACK MainMenuHandleWMCommand(WPARAM wParam, HWND hwnd, LPARAM lparam)
 }
 LRESULT CALLBACK DlgProcMainMenu(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	if (CommonDlgPageProcess(hwnd, msg, wParam, lParam))
+	{
+		return TRUE;
+	}
+
 	switch (msg)
 	{
-	case WM_RBUTTONDOWN:
-		ShowPopupMenu();
-		return TRUE;
 	case WM_TRAYICON:
 		HandleNotifyIcon(hwnd, wParam, lParam);
 		return TRUE;
@@ -340,12 +352,37 @@ TStatus StartCycle(_In_ HINSTANCE hInstance, _In_ int nCmdShow, int& retFromWnd)
 	SW_RETURN_SUCCESS;
 }
 
+void InitLang()
+{
+	if (SettingsGlobal().idLang != SLANG_UNKNOWN)
+		return;
+	
+	TChar sLocName[1000];
+	int size = GetLocaleInfoEx(LOCALE_NAME_USER_DEFAULT, LOCALE_SNAME, sLocName, sizeof(sLocName));
+	if (size > 0)
+	{
+		if (boost::algorithm::istarts_with(sLocName, L"ru-"))
+		{
+			SettingsGlobal().idLang = SLANG_RUS;
+			SettingsGlobal().Save();
+		}
+	}
+	if (SettingsGlobal().idLang == SLANG_UNKNOWN)
+	{
+		SettingsGlobal().idLang = SLANG_ENG;
+		SettingsGlobal().Save();
+	}
+
+	InitializeLang(SettingsGlobal().idLang);
+}
+
 TStatus APIENTRY StartGui(
 	_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPTSTR lpCmdLine,
 	_In_ int nCmdShow)
 {
+	InitLang();
 
 	SW_TSTATUS_RET(SwShared::Global().Init());
 
@@ -359,6 +396,9 @@ TStatus APIENTRY StartGui(
 	{
 		PostMessage(hwnd_run, c_MSG_Quit, 0, 0);
 	}
+
+	//SettingsGlobal().Load();
+	InitializeLang(SettingsGlobal().idLang);
 
 	CAutoCOMInitialize autoCom;
 

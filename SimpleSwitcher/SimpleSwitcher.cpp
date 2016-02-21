@@ -6,7 +6,7 @@
 
 #include "Hooker.h"
 #include "SwUtils.h"
-#include "SettingsGui.h"
+#include "Settings.h"
 #include "CAutoCleanupWin.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -31,7 +31,7 @@ TStatus SetHotKey(CHotKey key, CAutoHotKey& autokey, int idHotKey)
 		UINT fsModifiers = 0;
 		std::wstring s;
 		key.ToString(s);
-		SW_LOG_INFO_DEBUG(L"Set hotkey %s", s.c_str());
+		SW_LOG_INFO_1(L"Set hotkey %s", s.c_str());
 		if (key.HasMod(VK_MENU))
 			fsModifiers |= MOD_ALT;
 		if (key.HasMod(VK_CONTROL))
@@ -116,7 +116,7 @@ TStatus StartCycle(_In_ HINSTANCE hInstance,_In_ int nCmdShow)
 
 		if(msg.message == WM_HOTKEY)
 		{
-			SW_LOG_INFO_DEBUG(L"WM_HOTKEY id=%d", msg.wParam);
+			//SW_LOG_INFO_2(L"WM_HOTKEY id=%d", msg.wParam);
 
 		}
 		else if (msg.message == c_MSG_SettingsChanges)
@@ -179,7 +179,7 @@ TStatus HookGlobal(HookHandles& handles)
 	if (!IsWindowsVistaOrGreater())
 	{
 		hModUser = LoadLibrary(L"user32.dll");
-		SW_LOG_INFO_DEBUG(L"hModUser=%p", hModUser.Get());
+		//SW_LOG_INFO_2(L"hModUser=%p", hModUser.Get());
 	}
 	handles.hHookKeyGlobal = ntapi::SetWindowsHookEx(WH_KEYBOARD_LL, &Hooker::LowLevelKeyboardProc, hModUser, 0);
 	SW_WINBOOL_RET(handles.hHookKeyGlobal.IsValid());
@@ -233,7 +233,7 @@ TStatus StartMonitor(
 		SW_WAITDWORD_RET(waiter.Wait(mtxHook, 0));
 	}
 
-	SettingsGlobal().Load();
+	//SettingsGlobal().Load();
 
 	Hooker hooker;
 	CommonDataGlobal().hooker = &hooker;

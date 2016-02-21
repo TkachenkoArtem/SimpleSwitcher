@@ -3,6 +3,8 @@ SimpleSwitcher.sdf
 SimpleSwitcher/SimpleSwitcher.aps
 SimpleSwitcher/SimpleSwitcher.vcxproj.user
 /ipch
-/Debug
-/SimpleSwitcher/Debug
+/*Debug
+/*Release
+/SimpleSwitcher/*Debug
+/SimpleSwitcher/*Release
 SimpleSwitcher.v12.suo

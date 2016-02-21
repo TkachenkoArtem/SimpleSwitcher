@@ -1,5 +1,7 @@
 #pragma once
 
+#include "swlocal.h"
+
 typedef unsigned char TKeyCode;
 
 
@@ -295,7 +297,7 @@ public:
 	{
 		if(size == 0)
 		{
-			s = L"[Не задано]";
+			s = GetMessageById(AM_5);
 		}
 		else
 		{

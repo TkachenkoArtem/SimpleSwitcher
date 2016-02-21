@@ -4,7 +4,7 @@
 
 
 #include "SwUtils.h"
-#include "SettingsGui.h"
+#include "Settings.h"
 #include "CAutoCOM.h"
 #include "SwShedule.h"
 #include "SwShared.h"

@@ -19,6 +19,9 @@
     <Filter Include="src-main">
       <UniqueIdentifier>{044e2a02-e7a0-4358-8323-99eea5770ded}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Localization">
+      <UniqueIdentifier>{6198b329-1f86-414d-ac2e-25caae72a270}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -66,9 +69,6 @@
     <ClInclude Include="resource1.h">
       <Filter>res</Filter>
     </ClInclude>
-    <ClInclude Include="SettingsGui.h">
-      <Filter>gui</Filter>
-    </ClInclude>
     <ClInclude Include="SwGui.h">
       <Filter>gui</Filter>
     </ClInclude>
@@ -109,6 +109,12 @@
       <Filter>sw-tools</Filter>
     </ClInclude>
     <ClInclude Include="SimpleSwitcher.h">
+      <Filter>src-main</Filter>
+    </ClInclude>
+    <ClInclude Include="swlocal.h">
+      <Filter>Localization</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
       <Filter>src-main</Filter>
     </ClInclude>
   </ItemGroup>
@@ -163,6 +169,21 @@
     </ClCompile>
     <ClCompile Include="SimpleSwitcher.cpp">
       <Filter>src-main</Filter>
+    </ClCompile>
+    <ClCompile Include="swlocal.cpp">
+      <Filter>Localization</Filter>
+    </ClCompile>
+    <ClCompile Include="msg_ru.cpp">
+      <Filter>Localization</Filter>
+    </ClCompile>
+    <ClCompile Include="msg_en.cpp">
+      <Filter>Localization</Filter>
+    </ClCompile>
+    <ClCompile Include="pagelang.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

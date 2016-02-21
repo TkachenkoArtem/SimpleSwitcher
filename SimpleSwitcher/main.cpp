@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SimpleSwitcher.h"
 #include "SwUtils.h"
-#include "SettingsGui.h"
+#include "Settings.h"
 #include "SwShedule.h"
 #include "CAutoCOM.h"
 #include "SwGui.h"
@@ -30,7 +30,9 @@ TStatus MainInt(LPTSTR lpCmdLine, HINSTANCE hInstance, HINSTANCE hPrevInstance, 
 {
 	CommonDataGlobal().hInst = hInstance;
 
-	SW_LOG_INFO_DEBUG(L"Start %s. Elevated=%d", *lpCmdLine ? lpCmdLine : L"GUI", IsSelfElevated());
+	SettingsGlobal().Load();
+
+	SW_LOG_INFO_1(L"Start %s. Elevated=%d", *lpCmdLine ? lpCmdLine : L"GUI", IsSelfElevated());
 
 	if (wcscmp(lpCmdLine, c_sArgHook32) == 0)
 	{
@@ -103,7 +105,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 TStatus HandleAutostart(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine)
 {
-	SettingsGlobal().Load();
+	//SettingsGlobal().Load();
 
 	TSWAdmin admin = SW_ADMIN_SELF;
 

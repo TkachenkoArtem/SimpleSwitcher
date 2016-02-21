@@ -4,7 +4,7 @@
 
 TStatus SendKeys(SendData& sendData)
 {
-	SW_LOG_INFO_DEBUG(L"SendInputShared revert");
+	//SW_LOG_INFO_2(L"SendInputShared revert");
 	InputSender inputSender;
 	CHotKey backspace(VK_BACK);
 	if (sendData.type != Hotkey_RevertSel)

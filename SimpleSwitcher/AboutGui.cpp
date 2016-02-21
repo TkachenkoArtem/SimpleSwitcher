@@ -6,13 +6,15 @@ namespace SwGui {
 
 void InitDlgAbout(HWND hwnd)
 {
+	SetWindowText(hwnd, GetMessageById(AM_CaptAb));
+
 	SetDlgItemText(hwnd, IDC_EDIT_LINK, c_sSiteLink);
 	SetDlgItemText(hwnd, IDC_EDIT_LABEL, c_sProgramName);
 	SendDlgItemMessage(hwnd, IDC_EDIT_LABEL,  WM_SETFONT, (WPARAM)g_dlgData.fontLabel.Get(), 0);
 
 	{
 		TChar buf[1024];
-		wcscpy_s(buf, L"Version: ");
+		wcscpy_s(buf, GetMessageById(AM_VERS));
 		wcscat_s(buf, c_sVersion);
 		wcscat_s(buf, L"\r\n");
 		wcscat_s(buf, L"Date: 15.01.2015");

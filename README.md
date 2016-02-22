@@ -12,7 +12,7 @@ Very often it sets no time to notice how few words you type in the wrong layout.
 Simple Switcher allows you to override the Caps Lock key into a special function key. Thus, you can disable CapsLock, or use it to call one of the functions of the program. CapsLock functionality will be accessible by pressing "Ctrl + CapsLock".
 
 #### Work in the programs launched by the Administrator
-If the Simple Switcher is used in Windows with included UAC, it is possible to specify whether or not to work in the programs launched by the Administrator.
+If the Simple Switcher is used in Windows with enabled UAC, it is possible to specify whether or not to work in the programs launched by the Administrator.
 
 #### Lightness
 The Simple Switcher is not used automatic switching - only hotkey. No sound, useful tips, updates and other cars. Minimum functionality. Maxim performance. No extra lib. Only pure WinAPI.

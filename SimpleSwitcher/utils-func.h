@@ -56,6 +56,7 @@ inline TStatus CenterWindow(HWND hwndMain, HWND hwndClient)
 	SetWindowPos(hwndClient, 0, x + rect.left, y + rect.top, 0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_NOACTIVATE);
 	SW_RETURN_SUCCESS;
 }
+
 inline TUInt64 GetBootTime()
 {
 	typedef struct _SYSTEM_TIME_OF_DAY_INFORMATION

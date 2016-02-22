@@ -20,6 +20,7 @@ namespace ntapi
 	#define GET_PROC_ADDRESS_EX_NTDLL(FnName) GetProcAddressEx(#FnName, "ntdll.dll", FnName);
 	#define GET_PROC_ADDRESS_EX_Advapi32(FnName) GetProcAddressEx(#FnName, "Advapi32.dll", FnName);
 	#define GET_PROC_ADDRESS_EX_User32(FnName) GetProcAddressEx(#FnName, "User32.dll", FnName);
+	#define GET_PROC_ADDRESS_EX_Kernel32(FnName) GetProcAddressEx(#FnName, "Kernel32.dll", FnName);
 
 	BOOL
 	(NTAPI * const CreateProcessWithTokenW)
@@ -77,5 +78,13 @@ namespace ntapi
 		_In_  DWORD idThread,
 		_In_  UINT dwflags
 		) = GET_PROC_ADDRESS_EX_User32(SetWinEventHook);
+
+	int (WINAPI * const GetLocaleInfoEx)
+		(
+		_In_opt_  LPCWSTR lpLocaleName,
+		_In_      LCTYPE  LCType,
+		_Out_opt_ LPWSTR  lpLCData,
+		_In_      int     cchData
+		) = GET_PROC_ADDRESS_EX_Kernel32(GetLocaleInfoEx);
 
 }

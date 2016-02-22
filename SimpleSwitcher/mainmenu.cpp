@@ -356,23 +356,30 @@ void InitLang()
 {
 	if (SettingsGlobal().idLang != SLANG_UNKNOWN)
 		return;
-	
-	TChar sLocName[1000];
-	int size = GetLocaleInfoEx(LOCALE_NAME_USER_DEFAULT, LOCALE_SNAME, sLocName, sizeof(sLocName));
-	if (size > 0)
+
+	if (ntapi::GetLocaleInfoEx == NULL)
 	{
-		if (boost::algorithm::istarts_with(sLocName, L"ru-"))
+		SettingsGlobal().idLang = SLANG_ENG;
+	}
+	else
+	{
+		TChar sLocName[1000];
+		int size = ntapi::GetLocaleInfoEx(LOCALE_NAME_USER_DEFAULT, LOCALE_SNAME, sLocName, sizeof(sLocName));
+		if (size > 0)
 		{
-			SettingsGlobal().idLang = SLANG_RUS;
-			SettingsGlobal().Save();
+			if (boost::algorithm::istarts_with(sLocName, L"ru-"))
+			{
+				SettingsGlobal().idLang = SLANG_RUS;
+			}
 		}
 	}
+
 	if (SettingsGlobal().idLang == SLANG_UNKNOWN)
 	{
 		SettingsGlobal().idLang = SLANG_ENG;
-		SettingsGlobal().Save();
 	}
 
+	SettingsGlobal().Save();
 	InitializeLang(SettingsGlobal().idLang);
 }
 

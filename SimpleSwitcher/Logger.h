@@ -123,10 +123,11 @@ inline bool SW_ERROR(TStatus stat) { return !SW_SUCCESS(stat); }
 struct WinErrBOOL
 {
 	BOOL res;
+	DWORD dwErr;
 	WinErrBOOL(BOOL r): res(r)  {}
 	void Log()	
 	{
-		DWORD dwErr = GetLastError();
+		//DWORD dwErr = GetLastError();
 		__SW_LOG_FORMAT__(L"WinErr=%d ", dwErr);
 
 		CAutoWinMem lpMsgBuf;
@@ -143,13 +144,20 @@ struct WinErrBOOL
 		__SW_LOG_FORMAT__(L"%s", sMessage);
 
 	}
-	operator bool() const { return res == FALSE; }
+	operator bool() 
+	{
+		if (res == TRUE)
+			return false;
+		dwErr = GetLastError();
+		return true; 
+	}
 	TStatus ToTStatus()	{	return SW_ERR_WINAPI;	}
 };
 
 struct WinErrDwordWait
 {
 	DWORD res;
+	DWORD dwErr;
 	WinErrDwordWait(DWORD r) : res(r)  {}
 	void Log()	{
 		CAutoWinMem lpMsgBuf;
@@ -166,7 +174,13 @@ struct WinErrDwordWait
 		TChar* sMessage = (TChar*)lpMsgBuf.Get();
 		__SW_LOG_FORMAT__(L"Wait result=%d LastErr=%d %s", res, dwErr, sMessage);
 	 }
-	operator bool() const { return res != WAIT_OBJECT_0; }
+	operator bool() 
+	{ 
+		if (res == WAIT_OBJECT_0)
+			return false;
+		dwErr = GetLastError();
+		return true;
+	}
 	TStatus ToTStatus()	{ return SW_ERR_WAIT_PROCESS; }
 };
 

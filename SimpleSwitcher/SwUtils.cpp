@@ -48,8 +48,10 @@ TStatus RemoveWindowsRun()
 
 TStatus GetPath(std::wstring& sPath, TPathType type, TSWBit bit)
 {
-	TCHAR buf[0x1000];
-	SW_WINBOOL_RET(GetModuleFileNameEx(GetCurrentProcess(), NULL, buf, sizeof(buf)));
+	TCHAR buf[32000];
+	DWORD nSize = GetModuleFileName(NULL, buf, sizeof(buf));
+	SW_WINBOOL_RET(nSize > 0);
+
 	sPath = buf;
 
 	if (type == PATH_TYPE_SELF_FOLDER)

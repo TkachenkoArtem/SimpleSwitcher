@@ -131,16 +131,16 @@ TStatus Hooker::LowLevelKeyboardProcInt(KBDLLHOOKSTRUCT* k, WPARAM wParam)
 	else
 		return SW_ERR_UNKNOWN;
 
-	//if (GetLogLevel() >= LOG_LEVEL_1)
-	//{
-	//	std::wstring s1;
-	//	CHotKey::ToString(vkCode, s1);
-	//	SW_LOG_INFO_2(L"cur type %S: %s ", GetKeyStateName(curKeyState), s1.c_str());
+	if (GetLogLevel() >= LOG_LEVEL_2)
+	{
+		std::wstring s1;
+		CHotKey::ToString(vkCode, s1);
+		SW_LOG_INFO_2(L"cur type %S: %s ", GetKeyStateName(curKeyState), s1.c_str());
 
-	//	std::wstring s2;
-	//	m_curKey.ToString(s2, true);
-	//	SW_LOG_INFO_2(L"cur hot key: %s", s2.c_str());
-	//}
+		std::wstring s2;
+		m_curKey.ToString(s2, true);
+		SW_LOG_INFO_2(L"cur hot key: %s", s2.c_str());
+	}
 
 	if (curKeyState != KEY_STATE_DOWN)
 		SW_RETURN_SUCCESS;

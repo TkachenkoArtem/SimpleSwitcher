@@ -1,5 +1,6 @@
 # SimpleSwitcher
-Simple Switcher - program to quickly switch the layout of the text. The analogue Punto Switcher
+Simple Switcher - program to quickly switch the layout of the text. The analogue Punto Switcher.
+
 
 ## Key features
 #### Changing the layout of the last word you typed
@@ -19,3 +20,7 @@ The Simple Switcher is not used automatic switching - only hotkey. No sound, use
 
 #### Portability
 It does not require installation and removal. All files are stored in your folder.
+
+
+
+A detailed description and screenshots are available on the website: http://simpleswitcher.ru/
